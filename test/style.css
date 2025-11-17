@@ -1,0 +1,292 @@
+
+:root {
+  --bg: #0D0E0F;               
+  --surface: #17191C;          
+  --surface-light: #1F2226;      
+  --text: #F5F7FA;               
+  --muted: #9DA1A9;              
+  --accent: #00E5FF;             
+  --accent-soft: rgba(0, 229, 255, 0.18);
+  --border: #23262B;
+  --radius-lg: 1.4rem;
+  --radius-md: 0.9rem;
+  --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --gap: 1.7rem;
+}
+
+/* ------------------------ Base Reset ------------------------ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+
+  background: radial-gradient(circle at top, #141518 0%, var(--bg) 60%);
+  color: var(--text);
+  padding: 2.5rem clamp(1.5rem, 3vw, 3rem);
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ------------------------ Header ------------------------ */
+
+header {
+  margin-bottom: 2.5rem;
+}
+
+header h1 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+header p {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  max-width: 560px;
+  font-size: 0.95rem;
+}
+
+/* Portfolio Tagline */
+.tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+}
+
+.tagline-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ------------------------ Grid Layout ------------------------ */
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: var(--gap);
+}
+
+/* ------------------------ Project Card ------------------------ */
+
+.project-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: background 150ms ease-out, border-color 150ms ease-out;
+}
+
+.project-card:hover {
+  background: var(--surface-light);
+  border-color: var(--accent);
+}
+
+/* ------------------------ Images ------------------------ */
+
+.project-media {
+  position: relative;
+}
+
+.project-main-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 150ms ease-out, filter 150ms ease-out;
+}
+
+.project-card:hover .project-main-image {
+  transform: scale(1.02);
+  filter: brightness(1.08);
+}
+
+/* ------------------------ Carousel ------------------------ */
+
+.carousel-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.8rem 0.6rem;
+  background: rgba(10, 12, 14, 0.95);
+  border-top: 1px solid var(--border);
+}
+
+.carousel-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.carousel-btn {
+  border-radius: 999px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(20, 25, 30, 0.9);
+  color: var(--text);
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.carousel-btn:hover {
+  border-color: var(--accent);
+  background: rgba(20, 25, 30, 0.95);
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 0.22rem;
+  align-items: center;
+}
+
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  border: none;
+}
+
+.carousel-dot.active {
+  width: 14px;
+  background: var(--accent);
+}
+
+/* ------------------------ Card Info ------------------------ */
+
+.project-info {
+  padding: 1.15rem 1.35rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.project-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--muted);
+}
+
+.project-meta span {
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(150, 150, 160, 0.3);
+  background: rgba(25, 28, 32, 0.7);
+  display: inline-block;              
+  max-width: min(18rem, 100%);        
+  white-space: normal;               
+}
+
+.project-description {
+  font-size: 0.93rem;
+  color: var(--muted);
+}
+
+.project-highlights {
+  padding-left: 1.15rem;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.project-highlights li + li {
+  margin-top: 0.15rem;
+}
+
+.project-tools {
+  margin-top: 0.45rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+}
+
+.tool-pill {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(50, 70, 85, 0.7);
+  border: 1px solid rgba(100, 150, 170, 0.45);
+  color: #d6ecff;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding-inline: 1.25rem;
+  }
+}
+
+/* ------------------------ Project Link Buttons ------------------------ */
+
+.project-links {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.link-btn {
+  padding: 0.45rem 1rem;
+  border-radius: 0.6rem;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 500;
+
+  /* Matte grey base with tiny cyan tint */
+  background: rgba(40, 50, 55, 0.35);
+  border: 1px solid rgba(120, 150, 160, 0.28);
+
+  /* Grey-cyan text */
+  color: rgba(180, 220, 230, 0.75);
+
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.link-btn:hover {
+  background: rgba(55, 70, 75, 0.45);       
+  border-color: rgba(140, 180, 190, 0.4);
+  color: rgba(200, 240, 255, 0.9);           
+}
+
+.link-btn:active {
+  background: rgba(70, 90, 95, 0.5);
+  border-color: rgba(160, 200, 210, 0.45);
+}
