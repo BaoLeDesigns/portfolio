@@ -101,6 +101,26 @@ header p {
   transition: background 150ms ease-out, border-color 150ms ease-out;
 }
 
+.portfolio-grid {
+  overflow: visible; /* let hovered cards extend outside their cell */
+}
+
+.project-card {
+  position: relative;
+  transition:
+    transform 160ms ease-out,
+    box-shadow 160ms ease-out,
+    background 160ms ease-out,
+    border-color 160ms ease-out;
+  z-index: 0;
+}
+
+.project-card:hover {
+  transform: scale(1.1);          
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.75);
+  z-index: 5;                      
+}
+
 .project-card:hover {
   background: var(--surface-light);
   border-color: var(--accent);
@@ -180,6 +200,58 @@ header p {
   background: var(--accent);
 }
 
+.carousel-toggle {
+  margin-bottom: 1rem;
+  opacity: 0.6;
+  transition: opacity 150ms ease;
+  user-select: none;
+}
+
+.carousel-toggle:hover {
+  opacity: 1;
+}
+
+.carousel-toggle label {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.carousel-toggle input {
+  margin-right: 6px;
+  transform: scale(1.1);
+}
+
+.carousel-toggle {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: flex-end; 
+}
+
+.toggle-btn {
+  padding: 0.45rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(120, 150, 160, 0.35);
+  background: rgba(35, 40, 45, 0.55);
+  color: rgba(200, 230, 240, 0.85);
+  font-size: 0.85rem;
+  font-family: inherit;        
+  cursor: pointer;
+  transition: all 140ms ease;
+  user-select: none;
+}
+
+/* ON State */
+.toggle-on {
+  background: rgba(30, 120, 140, 0.35);
+  border-color: rgba(100, 200, 220, 0.45);
+  color: rgba(220, 255, 255, 1);
+}
+
+/* Hover effect */
+.toggle-btn:hover {
+  background: rgba(55, 70, 75, 0.45);
+}
 /* ------------------------ Card Info ------------------------ */
 
 .project-info {
@@ -289,4 +361,81 @@ header p {
 .link-btn:active {
   background: rgba(70, 90, 95, 0.5);
   border-color: rgba(160, 200, 210, 0.45);
+}
+
+
+/* ---------------------- Lightbox Viewer ---------------------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+  z-index: 9999;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 92vh;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.65);
+}
+
+/* Close button */
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.85);
+  transition: 0.15s;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  color: #ffffff;
+}
+
+/* Prev / next inside lightbox */
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 140ms ease, color 140ms ease;
+  z-index: 10000;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.226);
+  color: #ffffff;
+}
+
+.lightbox-prev {
+  left: 30px;
+}
+
+.lightbox-next {
+  right: 30px;
 }

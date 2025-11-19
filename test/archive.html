@@ -9,79 +9,30 @@
 <body>
   <div class="page">
     <header>
-      <h1>Project Archive – Older & Supporting Work</h1>
+      <h1>Project Archive – Older &amp; Supporting Work</h1>
       <p>
         Earlier projects, class work, and experiments. These pieces show my
         growth over time and explore different styles, pipelines, and mediums.
         For my most recent featured work, head back to the main portfolio page.
       </p>
 
-      <!-- Back to main portfolio button -->
+      <!-- Back to main portfolio / About -->
       <div style="margin-top: 1rem;">
         <a href="index.html" class="link-btn">← Back to Featured Projects</a>
         <a href="about.html" class="link-btn">About / CV</a>
       </div>
     </header>
 
+    <!-- Auto-rotate toggle button -->
+    <div class="carousel-toggle">
+      <button id="autoRotateButton" class="toggle-btn toggle-on">
+        Auto-Rotate: ON
+      </button>
+    </div>
+
     <main>
       <section class="portfolio-grid">
-
-        <!-- 🟡 Terracatta Army -->
-        <article
-          class="project-card"
-          data-images="images/archive_terracatta_01.png"
-        >
-          <div class="project-media">
-            <img
-              class="project-main-image"
-              src="images/archive_terracatta_01.png"
-              alt="Terracatta Army – virtual sculpture"
-            />
-
-            <div class="carousel-strip">
-              <div class="carousel-buttons">
-                <button class="carousel-btn prev" type="button">&#10094;</button>
-                <button class="carousel-btn next" type="button">&#10095;</button>
-              </div>
-              <div class="carousel-dots"></div>
-            </div>
-          </div>
-
-          <div class="project-info">
-            <h2 class="project-title">Terracatta Army – Virtual Sculpture</h2>
-
-            <div class="project-meta">
-              <span>Photogrammetry • 3D Virtual Sculpture</span>
-              <span>Class Project</span>
-              <span>2025</span>
-            </div>
-
-            <p class="project-description">
-              A playful reinterpretation of the Terracotta Army built from
-              everyday objects via photogrammetry. Focused on scan capture,
-              cleanup, and presentation in a virtual gallery context.
-            </p>
-
-            <ul class="project-highlights">
-              <li>Captured objects using RealityScan / RealityCapture.</li>
-              <li>Cleaned, retopologized, and organized assets in Blender.</li>
-              <li>Composed the final scene as a virtual diorama.</li>
-            </ul>
-
-            <div class="project-tools">
-              <span class="tool-pill">RealityScan</span>
-              <span class="tool-pill">RealityCapture</span>
-              <span class="tool-pill">Blender</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://sketchfab.com/" target="_blank" class="link-btn">
-                View Model on Sketchfab
-              </a>
-            </div>
-          </div>
-        </article>
-
+        
         <!-- 🟡 Too Late? -->
         <article
           class="project-card"
@@ -107,7 +58,7 @@
             <h2 class="project-title">Too Late? – Ocean Environment</h2>
 
             <div class="project-meta">
-              <span>3D Environment & Animation</span>
+              <span>3D Environment &amp; Animation</span>
               <span>Personal Project</span>
               <span>2024</span>
             </div>
@@ -160,7 +111,7 @@
 
             <div class="project-meta">
               <span>Game Project</span>
-              <span>Lead Designer & 3D Artist</span>
+              <span>Lead Designer &amp; 3D Artist</span>
               <span>2024</span>
             </div>
 
@@ -213,7 +164,7 @@
 
             <div class="project-meta">
               <span>Game Project</span>
-              <span>Lead Designer & 2D Artist</span>
+              <span>Lead Designer &amp; 2D Artist</span>
               <span>2024</span>
             </div>
 
@@ -397,7 +348,14 @@
     </main>
   </div>
 
+  <!-- Lightbox for enlarged images -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-nav lightbox-prev" type="button">&#10094;</button>
+    <img class="lightbox-img" src="" alt="" />
+    <button class="lightbox-nav lightbox-next" type="button">&#10095;</button>
+    <span class="lightbox-close">&times;</span>
+  </div>
+
   <script src="main.js" defer></script>
 </body>
-
 </html>

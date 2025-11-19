@@ -1,10 +1,8 @@
-// main.js
-// Finds all .project-card elements with data-images and
-// turns them into independent carousels.
-
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".project-card[data-images]");
+  let autoRotateEnabled = true; // global toggle state
 
+  // ------------------ CAROUSELS ------------------
   cards.forEach((card) => {
     const raw = card.dataset.images || "";
     const images = raw
@@ -24,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     mainImg.src = images[0];
 
-    // Create dots based on images
+    // Build dots
     images.forEach((src, index) => {
       const dot = document.createElement("button");
       dot.type = "button";
@@ -44,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // Arrow buttons
     prevBtn.addEventListener("click", () => {
       updateImage(currentIndex - 1);
     });
@@ -52,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateImage(currentIndex + 1);
     });
 
+    // Dots click
     dotsWrapper.addEventListener("click", (e) => {
       const target = e.target;
       if (
@@ -63,16 +63,136 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Auto-rotate
-    let autoTimer = setInterval(() => {
-      updateImage(currentIndex + 1);
-    }, 4000);
+    // ------------------ AUTO-ROTATE PER CARD ------------------
+    let autoTimer = null;
 
-    card.addEventListener("mouseenter", () => clearInterval(autoTimer));
-    card.addEventListener("mouseleave", () => {
+    function startAuto() {
+      if (!autoRotateEnabled || autoTimer) return;
       autoTimer = setInterval(() => {
         updateImage(currentIndex + 1);
-      }, 4000);
+      }, 6000);
+    }
+
+    function stopAuto() {
+      if (!autoTimer) return;
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+
+    startAuto(); // start if enabled
+
+    card.addEventListener("mouseenter", stopAuto);
+    card.addEventListener("mouseleave", startAuto);
+
+    
+    card._startAuto = startAuto;
+    card._stopAuto = stopAuto;
+  });
+
+// ------------------ AUTO ROTATE BUTTON ------------------
+const autoBtn = document.getElementById("autoRotateButton");
+if (autoBtn) {
+  autoBtn.addEventListener("click", () => {
+    autoRotateEnabled = !autoRotateEnabled;
+
+    // Update button UI
+    if (autoRotateEnabled) {
+      autoBtn.classList.add("toggle-on");
+      autoBtn.textContent = "Auto-Rotate: ON";
+    } else {
+      autoBtn.classList.remove("toggle-on");
+      autoBtn.textContent = "Auto-Rotate: OFF";
+    }
+
+    // Start/stop all timers
+    cards.forEach((card) => {
+      if (autoRotateEnabled && typeof card._startAuto === "function") {
+        card._startAuto();
+      } else if (!autoRotateEnabled && typeof card._stopAuto === "function") {
+        card._stopAuto();
+      }
     });
   });
+}
+
+  // ---------------------- LIGHTBOX LOGIC ----------------------
+  const lightbox = document.getElementById("lightbox");
+  if (!lightbox) return; 
+
+  const lightboxImg = lightbox.querySelector(".lightbox-img");
+  const lightboxClose = lightbox.querySelector(".lightbox-close");
+  const lightboxPrev = lightbox.querySelector(".lightbox-prev");
+  const lightboxNext = lightbox.querySelector(".lightbox-next");
+
+  let lightboxImages = [];
+  let lightboxIndex = 0;
+
+  function showLightboxImage(delta = 0) {
+    if (!lightboxImages.length || !lightboxImg) return;
+
+    if (delta !== 0) {
+      const total = lightboxImages.length;
+      lightboxIndex = (lightboxIndex + delta + total) % total;
+    }
+
+    lightboxImg.src = lightboxImages[lightboxIndex];
+  }
+
+  
+  document.querySelectorAll(".project-main-image").forEach((img) => {
+    img.style.cursor = "zoom-in";
+
+    img.addEventListener("click", () => {
+      const card = img.closest(".project-card");
+      if (!card) return;
+
+      const raw = card.dataset.images || "";
+      const images = raw
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      if (!images.length) return;
+
+      lightboxImages = images;
+
+      const fullSrc = img.src;
+      let idx = images.findIndex((path) => fullSrc.endsWith(path));
+      if (idx === -1) idx = 0;
+
+      lightboxIndex = idx;
+      showLightboxImage(0);
+      lightbox.classList.add("active");
+    });
+  });
+
+  // Lightbox nav buttons
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showLightboxImage(-1);
+    });
+  }
+
+  if (lightboxNext) {
+    lightboxNext.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showLightboxImage(1);
+    });
+  }
+
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener("click", () => {
+      lightbox.classList.remove("active");
+    });
+  }
+
+  
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove("active");
+    }
+  });
 });
+
